@@ -1,22 +1,18 @@
-class Brave
-  # attr_readerの記述でゲッターを省略することができる
-  attr_reader :name, :offense, :defense
-  attr_accessor :hp
-
-  SPECIAL_ATTACK_CONSTANT = 1.5
-
-  # initializeメソッド
-  # インスタンス作成時に初期値を設定する。
-  # paramsで一括で受け取る
-  # 引数に**を記述：ハッシュしか受け取れなくなる
+class Character
+  attr_reader :offense, :defense
+  attr_accessor :name, :hp
+  
   def initialize(**params)
-    # 各パラメータをハッシュで取得
     @name = params[:name]
-    @hp = params[:hp]
-    @offense = params[:offense]
+    @hp = parmas[:hp]
+    @offence = params[:offence]
     @defense = params[:defense]
   end
+end
 
+class Brave < Character
+
+  SPECIAL_ATTACK_CONSTANT = 1.5
 
   # 攻撃メソッド
   def attack(monster)
@@ -24,10 +20,8 @@ class Brave
 
     # decision_attack_typeメソッドの呼び出し
     attack_type = decision_attack_type
-
     # calculate_damageメソッドの呼び出し
     damage = calculate_damage(target: monster,attack_type: attack_type)
-    
     # ダメージをHPに反映させる
     cause_damage(target: monster,damage: damage)
     
@@ -81,19 +75,19 @@ class Brave
     
 end
 
-class Monster
-  attr_reader :offense, :defense
-  attr_accessor :hp, :name
+class Monster < Character
 
   POWER_UP_RATE = 1.5
   CALC_HALF_HP = 0.5
 
   def initialize(**params)
-    @name = params[:name]
-    @hp = params[:hp]
-    @offense = params[:offense]
-    @defense = params[:defense]
-
+    super(
+      name: params[:name],
+      hp: params[:hp],
+      offence: params[:offence],
+      defense: parmas[:defense]
+    )
+    
     @transform_hp = params[:hp] * CALC_HALF_HP
     @transform_flag = false
   end
