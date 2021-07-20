@@ -1,39 +1,29 @@
 class Brave
-  #nameのセッター
-  def name=(name)
-    @name = name
-  end
 
+  # initializeメソッド
+  # インスタンス作成時に初期値を設定する。
+  def initialize
+    @name = "テリー"
+    @hp = 500
+    @offense = 150
+    @defense = 100
+  end
+  
   # name getter
   def getName
     @name
-  end
-
-  # HPのセッター
-  def hp=(hp)
-    @hp = hp
   end
 
   # hp getter
   def getHp
     @hp
   end
-
-  # Offenseのセッター
-  def offense=(offense)
-    @offense = offense
-  end
-
+  
   # offense getter
   def getOffense
     @offense
   end
-
-  # defenseのセッター
-  def defense=(defense)
-    @defense = defense
-  end
-
+  
   # defense getter
   def getDefense
     @defense
@@ -42,10 +32,6 @@ class Brave
 end
 
 brave = Brave.new
-brave.name = "テリー"
-brave.hp = 500
-brave.offense = 150
-brave.defense = 100
 
 puts <<~TEXT
 NAME: #{brave.getName}
