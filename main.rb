@@ -17,6 +17,8 @@ class Brave
     @defense = params[:defense]
   end
 
+
+  # 攻撃メソッド
   def attack(monster)
     puts "#{@name}の攻撃！"
 
@@ -95,7 +97,7 @@ class Monster
   end
 
   def attack(brave)
-    # HPが半分かつ返信していないとき
+    # HPが半分かつ変身していないとき
     if @hp <= @transform_hp && @transform_flag == false
       @transform_flag = true
       transform
@@ -103,10 +105,12 @@ class Monster
 
       puts "#{@name}の攻撃！"
 
-      damage = @offense - brave.defense
-      brave.hp -= damage
+      # ダメージの計算メソッドを呼び出し
+      damage = calculate_damage(brave)
       
-      puts "#{brave.name}は#{damage.floor}のダメージを受けた！"
+      # ダメージの反映メソッドを呼び出し
+      cause_damage(target: brave, damage: damage)
+
       puts "#{brave.name}の残りHPは#{brave.hp.floor}だ！"
   end
 
@@ -120,6 +124,19 @@ class Monster
       
       @offense *= POWER_UP_RATE
       @name = transform_name
+    end
+
+    # ダメージ計算のメソッド
+    def calculate_damage(target)
+      @offense - target.defense
+    end
+
+    def cause_damage(**params)
+      target = params[:target]
+      damage = params[:damage]
+
+      target.hp -= damage
+      puts "#{target.name}は#{damage.floor}のダメージを受けた！"
     end
   
 end
