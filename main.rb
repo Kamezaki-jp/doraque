@@ -14,6 +14,17 @@ class Brave
     @offense = params[:offense]
     @defense = params[:defense]
   end
+
+  def attack(monster)
+    damage = @offense - monster.defense
+    monster.hp -= damage
+
+    puts <<~TEXT
+    #{@name}の攻撃！
+    #{monster.name}は#{damage}のダメージを受けた！
+    #{monster.name}の残りHPは、#{monster.hp}だ！
+    TEXT
+  end
   
 end
 
@@ -29,17 +40,10 @@ class Monster
   end
 end
 
+
+
 # ハッシュとして送信
 brave = Brave.new(name: "テリー",hp: 500,offense: 150,defense: 100)
 monster = Monster.new(name: "スライム", hp: 250, offense: 200, defense: 100)
 
-puts <<~TEXT
-NAME: #{brave.name}
-HP: #{brave.hp}
-OFFENSE: #{brave.offense}
-DEFENSE: #{brave.defense}
-TEXT
-
-brave.hp -= 30
-
-puts "#{brave.name}はダメージを受けた。残りのHPは#{brave.hp}だ"
+brave.attack(monster)
