@@ -16,14 +16,26 @@ class Brave
   end
 
   def attack(monster)
-    damage = @offense - monster.defense
+    puts "#{@name}の攻撃！"
+
+    attack_num = rand(4)
+    if attack_num == 0
+      puts "クリティカルヒット！"
+      damage = calculate_special_attack - monster.defense
+    else
+      puts "通常攻撃"
+      damage = @offense - monster.defense
+    end
+
     monster.hp -= damage
 
-    puts <<~TEXT
-    #{@name}の攻撃！
-    #{monster.name}は#{damage}のダメージを受けた！
-    #{monster.name}の残りHPは、#{monster.hp}だ！
-    TEXT
+    puts "#{monster.name}は#{damage.floor}のダメージを受けた！"
+    puts "#{monster.name}の残りHPは、#{monster.hp.floor}だ！"
+
+  end
+
+  def calculate_special_attack
+    @offense * 1.5
   end
   
 end
